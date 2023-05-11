@@ -1,0 +1,13 @@
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+  height: 0;
+  clear: both;
+}
+
+
+*{
+  user-select: none;
+  text-decoration: none;
+}
