@@ -16,7 +16,7 @@
 import {getCurrentInstance, ref} from "vue";
 
 const {proxy} = getCurrentInstance()
-const fullscreen = ref(false)
+const fullscreen = ref(true)
 const lock = ref(false)
 const emit = defineEmits(['destroy'])
 

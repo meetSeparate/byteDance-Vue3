@@ -58,12 +58,12 @@
       <div class="job-category content-item-block">
         <h2 class="job-category-title title">探索你感兴趣的职位</h2>
         <ul class="job-category-list clearfix">
-          <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
-            <router-link :to="{ name: 'jobs', query: { job_category_id: item.id } }">
+          <li v-for="item in jobCategories" :key="item.nid" class="job-category-item">
+            <router-link :to="{ name: 'jobs', query: { job_category_id: item.nid } }">
               <div class="image" :style="`background-image:url(${item.image})`">
-                <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
+                <span class="overlay" v-if="!item.nid">{{ item.name }}</span>
               </div>
-              <div v-if="item.id" class="name">{{ item.zh_name }}</div>
+              <div v-if="item.nid" class="name">{{ item.name }}</div>
             </router-link>
           </li>
         </ul>
@@ -196,149 +196,15 @@ const router = useRouter()
 const productLayerVisible = ref(false)
 
 // 产品列表
-const products = ref([
-  {
-    "name": "faceu",
-    "title": "激萌",
-    "logo": "//sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/Faceu2x_1574665474719.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jimeng.jpeg",
-    "description": "Faceu激萌，4 亿年轻人都爱用的卖萌自拍神器。",
-    "subDescription": "一款能社交的 AR 相机，海量酷炫贴纸、 激萌表情包 、实时美颜、 趣味特效让聊天姿势更丰富更有趣，满足全方位拍摄需求。累计用户量超过 4 亿， 平均每天为用户提供 1.7 亿次拍摄服务。",
-    "id": 1,
-    "link": "https://www.faceu.com"
-  },
-  {
-    "name": "lightFaceCamera",
-    "title": "轻颜相机",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/qingyan_square_logo_1577262252373.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/qingyan-bg2.jpg",
-    "description": "轻颜相机是一款主打高级感的质感自拍相机，连续霸榜应用商店。拥有时下最流行的滤镜、美颜效果、和海量拍照“姿势”模板，一键就能 get 潮流自拍。",
-    "subDescription": "",
-    "id": 2,
-    "link": "https://m.ulikecam.com/"
-  },
-  {
-    "name": "headNews",
-    "title": "今日头条",
-    "logo": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/toutiao_square_logo_1577262251819.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/toutiao_new_2.png",
-    "description": "今日头条是一款个性化资讯推荐引擎产品，致力于连接人与信息，让优质、丰富的信息得到高效、精准的分发，为用户创造价值。",
-    "subDescription": "今日头条目前拥有科技、体育、健康、美食、教育、三农、国风、NBA 等超过 100 个垂直领域，覆盖了图文、图集、小视频、短视频、短内容、直播、小程序等多种信息体裁。",
-    "id": 3,
-    "link": "https://m.ulikecam.com/"
-  },
-  {
-    "name": "trillShortVideo",
-    "title": "抖音短视频",
-    "logo": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/douyin_square_logo_1577262251779.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/douyin-bg2.jpg",
-    "description": "抖音是一个帮助用户表达自我，记录美好生活的短视频平台。截至 2020 年 1 月，日活跃用户数已经突破 4 亿，并继续保持高速增长。",
-    "subDescription": "",
-    "id": 4,
-    "link": "https://douyin.com/"
-  },
-  {
-    "name": "trillShortVideo",
-    "title": "西瓜视频",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/xigua_square_logo_1577262253312.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/xigua-bg2.jpg",
-    "description": "西瓜视频是字节跳动旗下的一款视频 App，作为聚合多元文化的综合视频平台，它通过个性化推荐，源源不断地为不同人群提供丰富的优质内容，同时鼓励多样化创作，帮助人们轻松地向全世界分享视频作品。",
-    "subDescription": "目前西瓜视频累计用户数超过 3.5 亿，日均播放量超过 40 亿。",
-    "id": 5,
-    "link": "https://ixigua.com/"
-  },
-  {
-    "name": "trillShortVideo",
-    "title": "懂车帝",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/dongchedi_square_logo_1577262251826.png",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/dongche-bg2.jpg",
-    "description": "懂车帝是“看车、选车、买车”一站式汽车媒体和服务平台，产品基于个性化推荐引擎帮助用户发现感兴趣的汽车内容，同时配有车型库、360 度全景看车等选车工具，首创短视频社区“车友圈”，为用户打造内容 + 社区 + 工具的多元生态。目前，懂车帝已经成长为增长最快的汽车类手机应用。",
-    "subDescription": "目前西瓜视频累计用户数超过 3.5 亿，日均播放量超过 40 亿。",
-    "id": 6,
-    "link": "https://www.dongchediapp.com/"
-  },
-  {
-    "name": "gogokid",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/gogokid_square_logo_1577262251773.png",
-    "title": "GoGoKid",
-    "id": 7,
-    "description": "GoGokid 是一个面向 4 - 12 岁孩子的在线少儿英语 1 对 1学习平台。主打 100% 纯北美外教；教材对标美国小学主流课标（CCSS），融入 SED（社交情商培养）、多元智能理论，为中国孩子带来高效的英语学习体验。",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/gogokid-bg2.jpg",
-    "link": "https://www.gogokid.com.cn"
-  },
-  {
-    "name": "naughtyShrimp",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/pipixia_square_logo_1577262251826.png",
-    "title": "皮皮虾",
-    "id": 8,
-    "description": "今日头条官方爆笑社区，一个只要打开就能让你笑到停不下来的 App。",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/pipi_new.png",
-    "subDescription": "皮皮虾一直坚持「传播快乐，分享生活」的目标，以特有的「神评」玩法形成了独特的社区氛围。之后，皮皮虾将不断提供更多有趣的功能，帮助用户创造出更多优质的内容。",
-    "link": "https://mp.pipix.com"
-  },
-  {
-    "name": "urgentLetter",
-    "logo": "https://sf6-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/feishu_squre.png",
-    "title": "飞书",
-    "id": 9,
-    "description": "飞书是新一代企业办公套件，整合即时沟通、日历、音视频会议、在线文档、云盘、工作台等功能于一体，为企业提供全方位协作解决方案，成就组织和个人，更高效、更愉悦。",
-    "cover": "//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/feishu_bg.jpg",
-    "subDescription": "",
-    "link": "https://www.feishu.com"
-  }
-])
+const products = ref([])
 // 岗位列表
-const jobCategories = ref([
-  {
-    "id": "6704215862603155720",
-    "en_name": "developer",
-    "zh_name": "研发",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/rd2.png"
-  },
-  {
-    "id": "6704215864629004552",
-    "en_name": "productManager",
-    "zh_name": "产品",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/prod2.png"
-  },
+const jobCategories = ref([])
 
-  {
-    "id": "6704215882479962371",
-    "en_name": "operator",
-    "zh_name": "运营",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/operation2.png"
-  },
-  {
-    "id": "6709824272514156812",
-    "en_name": "designer",
-    "zh_name": "设计",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/design2.png"
-  },
-  {
-    "id": "6704215901438216462",
-    "en_name": "marketer",
-    "zh_name": "市场",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/market2.png"
-  },
-  {
-    "id": "6709824272505768200",
-    "en_name": "seller",
-    "zh_name": "销售",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/sales2.png"
-  },
-  {
-    "id": "6704215913488451847",
-    "en_name": "supporter",
-    "zh_name": "职能支持",
-    "image": "https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/jobslight/support2.png"
-  },
-  {
-    "id": "",
-    "en_name": "whole",
-    "zh_name": "全部",
-    "image": "//sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/alljobs_2x_crop_min.png"
-  }
-])
+// 获取岗位列表
+const getJobCategory = async () => {
+  let res = await proxy.$api.getCategory()
+  jobCategories.value = res.data
+}
 // 字节标准列表
 const byteStandards = ref([
   {
@@ -406,6 +272,7 @@ const staffStories = ref([
     "richContent": "<p style='-webkit-font-smoothing: antialiased; margin: 20px auto; padding: 0px; line-height: 2.14; color: rgb(81, 86, 93); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'>我是 Roger 左儒哲，一个土生土长的美国人。在哈佛毕业之后，我和许多美国技术人才一样，漂到西海岸的硅谷，在亚马逊、Facebook 这类大厂和初创公司间跳来跳去，大厂小厂都待过后，我发现硅谷变了，这里的技术水平仍然很好，但大公司却越来越趋于稳定保守，不想冒险做创新的事情。</p><img src='https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/story/story3_img12x_1577069327983.jpg' alt='' style='-webkit-font-smoothing: antialiased; vertical-align: middle; width: 720px; margin: 12px auto; color: rgb(31, 35, 41); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'><span style='color: rgb(31, 35, 41); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'></span><p style='-webkit-font-smoothing: antialiased; margin: 20px auto; padding: 0px; line-height: 2.14; color: rgb(81, 86, 93); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'>后来我发现，九千多公里外的北京，倒是更像早期的硅谷。移动支付、二维码、共享经济……中国的互联网世界出现了好多创新，北京很多方面的发展比硅谷还要快，于是我决定，一定要来这里看看。</p><p style='-webkit-font-smoothing: antialiased; margin: 20px auto; padding: 0px; line-height: 2.14; color: rgb(81, 86, 93); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'>其实早在 2016 年的时候我就知道字节跳动，那时候只知道今日头条、抖音，还有海外的一些应用，入职后才知道，我们产品的覆盖范围其实比想象中大很多。 现在我主要在做飞书这个产品的客户端，目前还处于创新、创建、探索的阶段，很多的系统还没那么成熟，但这是一个全新的机会，我可以完整参与到做出一个兼具创新性和实用性的产品的过程中去，同事们的技术能力很强。飞书把日历、文档、聊天都放在一个 App 内，这样的工作模型非常方便，未来也很有潜力，很多硅谷的科技公司，也没有一个这么完整的办公软件。飞书的海外版本 Lark 已经发布，我也会给美国的朋友主动推广我们的产品，他们对 Lark 的反馈也都很不错！</p><p style='-webkit-font-smoothing: antialiased; margin: 20px auto; padding: 0px; line-height: 2.14; color: rgb(81, 86, 93); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'>当然，工作有成就感的同时，我也面临一些挑战，公司的工作节奏很快，每个人需要同时做很多事情。目前我们每两周发布一个新版本，关于产品计划，需要提前思考，这两周要发布什么新功能，功能上线后我需要管理哪些新的功能，修复哪些 bug，如何管理自己的时间等等。</p><p style='-webkit-font-smoothing: antialiased; margin: 20px auto; padding: 0px; line-height: 2.14; color: rgb(81, 86, 93); font-family: Gilroy-regular, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;'>工作下来我最大的感受是， 字节跳动有一个产品至上的概念，视用户为中心，所有的价值观和工作方法都在围绕这个概念展开。与此同时，这里的文化非常开放包容，没有太多的限制——我中文沟通还比较慢，但也可以来到北京和中国的同事一起工作。比起其他公司，字节跳动可能更浪漫，或者说，有更大的梦想。公司不设边界，只要连接人与信息的事情，我们都会尝试去做。</p>"
   }
 ])
+
 const onScrollRightAnimationEnd = () => {
   productLayerVisible.value = false
 }
@@ -414,6 +281,8 @@ onMounted(() => {
   EventBus.emit("home-scrolling",
       {x: document.body.scrollLeft, y: document.body.scrollTop}
   )
+  getProductList()
+  getJobCategory()
 })
 
 // 位置跳转
@@ -429,11 +298,16 @@ const jumpToDetail = (item) => {
   router.push({
     name: "products",
     query: {
-      id: item.id
+      id: item.nid
     }
   });
 }
 
+// 获取产品列表
+const getProductList = async () => {
+  let res = await proxy.$api.getProductList({})
+  products.value = res.data
+}
 </script>
 
 <style scoped lang="less">

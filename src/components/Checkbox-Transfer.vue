@@ -73,6 +73,8 @@ const prop = defineProps({
   },
 })
 
+const emit = defineEmits(['update:modelValue'])
+
 const {title, targetCount, data, modelValue, props} = toRefs(prop)
 
 // 计算属性
@@ -102,16 +104,9 @@ const placeholder = computed(() => {
   return !focusing.value ? "更多" : "搜索"
 })
 
+
 // 监视函数
 watch(data, (newValue, oldValue) => {
-
-})
-
-onMounted(() => {
-  changeTargets()
-})
-
-const changeTargets = () => {
   targets.value = data.value.slice(0, 6).map(item => item[props.value.key]);
   checked.value.length = targets.value.length;
   modelValue.value.forEach(key => {
@@ -120,7 +115,8 @@ const changeTargets = () => {
       checked.value.push(true);
     }
   });
-}
+})
+
 
 // 事件
 const clearChecked = () => {
@@ -158,7 +154,7 @@ const check = (item, e) => {
 
   EventBus.emit("check", e.target.checked)
   EventBus.emit("check", item[props.value.key])
-  EventBus.emit("input", modelValue.value)
+  emit('update:modelValue', modelValue.value)
 }
 </script>
 <style lang="less" scoped>

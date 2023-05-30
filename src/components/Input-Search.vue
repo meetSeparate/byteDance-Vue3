@@ -3,7 +3,7 @@
     <input
         ref="input"
         type="text"
-        placeholder="输入城市或职位进行搜索"
+        placeholder="输入职位进行搜索"
     />
     <span class="input-search-button"><el-icon class="icons"><Search/></el-icon></span>
   </div>

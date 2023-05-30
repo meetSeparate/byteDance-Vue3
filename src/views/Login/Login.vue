@@ -121,7 +121,7 @@ const svg = `
       `
 
 const changeLogin = () => {
-  const loadingInstance1 = ElLoading.service({spinner: svg, fullscreen: true})
+  const loadingInstance1 = ElLoading.service({fullscreen: true, text: '加载中...'})
   setTimeout(() => {
     isLogin.value = !isLogin.value
     loadingInstance1.close()

@@ -8,11 +8,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import api from './api/api.js'
 
 
-// import Loading from "./components/Loading/main";
+import {LoadingPlugin} from "./components/Loading/main";
 
 const app = createApp(App)
 app.use(router).use(store)
-// app.use(Loading)
+app.use(LoadingPlugin)
 app.config.globalProperties.$api = api
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
