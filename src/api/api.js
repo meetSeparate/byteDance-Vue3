@@ -48,5 +48,14 @@ export default {
     getJobDetail: (id) => request({
         url: `/job_detail/${id}`,
         method: 'get',
-    })
+    }),
+
+    testAPI: (data) => {
+        console.log(data, typeof data)
+        return request({
+            url: '/test/',
+            method: 'post',
+            data
+        })
+    }
 }

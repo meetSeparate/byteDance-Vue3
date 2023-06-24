@@ -41,7 +41,7 @@
   </div>
 </template>
 <script setup>
-import {defineProps, toRefs, ref, computed, watch, onMounted} from "vue";
+import {toRefs, ref, computed, watch, onMounted} from "vue";
 import EventBus from "../helper/EventBus/index.js";
 
 const focusing = ref(false)
@@ -151,10 +151,9 @@ const check = (item, e) => {
       modelValue.value.push(item[props.value.key]);
     }
   }
-
   EventBus.emit("check", e.target.checked)
   EventBus.emit("check", item[props.value.key])
-  emit('update:modelValue', modelValue.value)
+  emit('update:modelValue', [...modelValue.value])
 }
 </script>
 <style lang="less" scoped>

@@ -120,9 +120,11 @@ const pageOperation = ref({
   page: 1
 })
 
-// 分类及城市分类配置
+// 分类及城市分类以及搜索配置
 const config = computed(() => {
   return {
+    limit: pageOperation.value.limit,
+    page: pageOperation.value.page,
     job_category_id_list: job_category_id_list.value,
     location_code_list: location_code_list.value,
   }
@@ -183,7 +185,7 @@ onMounted(() => {
 })
 
 watch(config, (newValue, oldValue) => {
-  console.log(config)
+  console.log(config.value)
   searchBarFixedTop.value && window.scrollTo(0, positionY)
   getJobList()
 })
