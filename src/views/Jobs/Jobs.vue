@@ -81,6 +81,7 @@ import {getOffsetTop} from "../../helper/utilities.js";
 import EventBus from "../../helper/EventBus/index.js";
 import InputSearch from '../../components/Input-Search.vue'
 import CheckboxTransfer from "../../components/Checkbox-Transfer.vue";
+import Loading from "../../components/Loading/index.js";
 
 const route = useRoute()
 const {proxy} = getCurrentInstance()
@@ -173,14 +174,10 @@ onMounted(() => {
   getCategory()
   getCity()
   getJobList()
-  const loadingInstance = ElLoading.service({
-    lock: true,
-    text: 'Loading',
-    background: 'rgba(0, 0, 0, 0.7)',
-  })
+  Loading.show()
 
   Promise.all([getCategory, getCity, getJobList]).then(() => {
-    loadingInstance.close()
+    Loading.close()
   })
 })
 

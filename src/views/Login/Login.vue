@@ -44,6 +44,7 @@
 import {reactive, ref, getCurrentInstance} from 'vue'
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
+import Loading from "../../components/Loading/index.js";
 
 const isLogin = ref(true)
 // 拿到proxy对象，相当于Vue2中的this
@@ -108,23 +109,11 @@ const signButton = async () => {
 // <path fill="#2CBDC3" d="M17.585 15.971l5.43-1.394V29.14l-5.43-1.394z"></path>
 // `
 
-// eleLogo
-const svg = `
-        <path class="path" d="
-          M 30 15
-          L 28 17
-          M 25.61 25.61
-          A 15 15, 0, 0, 1, 15 30
-          A 15 15, 0, 1, 1, 27.99 7.5
-          L 15 15
-        " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
-      `
-
 const changeLogin = () => {
-  const loadingInstance1 = ElLoading.service({fullscreen: true, text: '加载中...'})
+  Loading.show()
   setTimeout(() => {
     isLogin.value = !isLogin.value
-    loadingInstance1.close()
+    Loading.close()
   }, 1000)
 }
 </script>
