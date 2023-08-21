@@ -81,6 +81,7 @@ import {getOffsetTop} from "../../helper/utilities.js";
 import EventBus from "../../helper/EventBus/index.js";
 import InputSearch from '../../components/Input-Search.vue'
 import CheckboxTransfer from "../../components/Checkbox-Transfer.vue";
+import Loading from "../../components/Loading/index.js";
 
 const route = useRoute()
 const {proxy} = getCurrentInstance()
@@ -173,11 +174,8 @@ onMounted(() => {
   getCategory()
   getCity()
   getJobList()
-  const loadingInstance = ElLoading.service({
-    lock: true,
-    text: 'Loading',
-    background: 'rgba(0, 0, 0, 0.7)',
-  })
+  const loadingInstance = Loading
+  loadingInstance.show()
 
   Promise.all([getCategory, getCity, getJobList]).then(() => {
     loadingInstance.close()
@@ -185,7 +183,6 @@ onMounted(() => {
 })
 
 watch(config, (newValue, oldValue) => {
-  console.log(config.value)
   searchBarFixedTop.value && window.scrollTo(0, positionY)
   getJobList()
 })

@@ -1,5 +1,8 @@
+<script setup>
+</script>
+
 <template>
-  <div class="bytedanceLoading">
+  <div id="loading" class="bytedanceLoading">
     <div class="bytedanceLoading__wrapper">
       <!-- <div class="bytedanceLoading__background"></div> -->
       <div class="bytedanceLoading__inner">
@@ -12,33 +15,7 @@
   </div>
 </template>
 
-<script setup>
-import {getCurrentInstance, ref} from "vue";
-
-const {proxy} = getCurrentInstance()
-const fullscreen = ref(true)
-const lock = ref(false)
-const emit = defineEmits(['destroy'])
-
-const close = () => {
-  proxy.$el.remove()
-  emit('destroy')
-}
-</script>
-
-<style lang="less">
-.directiveLoading {
-  &-parent {
-    position: relative;
-    &-visible {
-      // max-height: 100vh !important;
-      // overflow: hidden;
-      // min-height: 500px !important;
-    }
-  }
-}
-</style>
-<style lang="less">
+<style lang="less" scoped>
 @height: 10px;
 @duration: 400ms;
 @itemWidth: 9px;
@@ -57,7 +34,19 @@ const close = () => {
     transform: translate3d(0, @height, 0);
   }
 }
-
+#loading {
+  display: none;
+}
+.directiveLoading {
+  &-parent {
+    position: relative;
+    &-visible {
+      // max-height: 100vh !important;
+      // overflow: hidden;
+      // min-height: 500px !important;
+    }
+  }
+}
 .bytedanceLoading {
   position: absolute;
   left: 0;
@@ -73,9 +62,15 @@ const close = () => {
     position: fixed !important;
   }
 
+  &__wrapper {
+    height: 100%;
+  }
+
   &__inner {
     display: flex;
-    height: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     &-item {
       width: @itemWidth;
       margin: 0 @doubleHorizontalSpace;
